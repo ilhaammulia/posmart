@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+:root {
+  --dark-bg: #232931;
+  --gray-bg: #393E46;
+  --green-bg: #4ECCA3;
+  --white-bg: #EEEEEE;
+}
+
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--dark-bg);
+}
+
+.text-theme {
+  color: var(--dark-bg);
+}
+
+.category-btn {
+  background-color: var(--green-bg);
+}
+
+.category-btn:hover {
+  background-color: #69D2B0;
+}
+
+.product-bg {
+  background-color: var(--white-bg);
+}
