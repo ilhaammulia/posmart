@@ -20,3 +20,21 @@ def must_login(func):
 # @must_login
 def home():
     return render_template('home.html')
+
+
+@views.route('/products')
+# @must_login
+def products():
+    return render_template('products.html')
+
+
+@views.route('/report')
+# @must_login
+def report():
+    return render_template('report.html')
+
+
+@views.route('/users')
+# @must_login
+def users():
+    return render_template('users.html')

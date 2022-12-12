@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block title %}
+Sales Report
+{% endblock %}
+
+{% block content %}
+<div class="drawer">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content">
+    <div class="navbar bg-base-100">
+      <div class="flex-none">
+        <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
+          <i class='bx bx-menu text-lg'></i>
+        </label>
+      </div>
+      <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl">POSmart</a>
+      </div>
+      <div class="flex-none">
+        <span class="text-right">Ilham Mulia</span>
+      </div>
+      <div class="flex-none">
+        <button class="btn btn-square btn-ghost">
+          <i class='bx bx-power-off' ></i>
+        </button>
+      </div>
+    </div>
+    <div id="info" class="w-4/5 mx-auto mt-10">
+      <div id="stats" class="flex justify-between">
+        <div class="card w-2/4 bg-base-50 shadow-xl">
+          <div class="card-body">
+            <h2 class="card-title">Today's Sales</h2>
+            <div class="flex justify-between">
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-title">
+                    <div class="stat-figure text-warning">
+                      <i class='bx bxs-bar-chart-alt-2 text-2xl' ></i>
+                    </div>
+                  </div>
+                  <div class="stat-value">89,400</div>
+                  <div class="stat-desc">Total Sales</div>
+                </div>
+              </div>
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-title">
+                    <div class="stat-figure text-primary">
+                      <i class='bx bxs-cart-alt text-2xl' ></i>
+                    </div>
+                  </div>
+                  <div class="stat-value">89,400</div>
+                  <div class="stat-desc">Total Order</div>
+                </div>
+              </div>
+              <div class="stats shadow">
+                <div class="stat">
+                  <div class="stat-title">
+                    <div class="stat-figure text-accent">
+                      <i class='bx bxs-package text-2xl' ></i>
+                    </div>
+                  </div>
+                  <div class="stat-value">89,400</div>
+                  <div class="stat-desc">Total Product Sold</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card w-1/4 bg-base-50 shadow-xl justify-end">
+          <div class="card-body">
+            <h2 class="card-title gap-3">Top Product</h2>
+            <table>
+              <tbody>
+                <tr>
+                  <td class="w-56">Nama Product</td>
+                  <td><progress class="progress progress-accent w-40" value="100" max="100"></progress></td>
+                </tr>
+                <tr>
+                  <td>Nama Product</td>
+                  <td><progress class="progress progress-accent w-40" value="80"" max="100"></progress></td>
+                </tr>
+                <tr>
+                  <td>Nama Product</td>
+                  <td><progress class="progress progress-accent w-40" value="60" max="100"></progress></td>
+                </tr>
+                <tr>
+                  <td>Nama Product</td>
+                  <td><progress class="progress progress-accent w-40" value="40" max="100"></progress></td>
+                </tr>
+                <tr>
+                  <td>Nama Product</td>
+                  <td><progress class="progress progress-accent w-40" value="20" max="100"></progress></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <div id="table-products" class="overflow-x-auto mx-auto mt-10">
+        <button class="btn add-btn text-theme mb-5">Add Product</button>
+        <table class="table w-full">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Job</th>
+              <th>Favorite Color</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <th>1</th>
+              <td>Cy Ganderton</td>
+              <td>Quality Control Specialist</td>
+              <td>Blue</td>
+            </tr>
+            <!-- row 2 -->
+            <tr>
+              <th>2</th>
+              <td>Hart Hagerty</td>
+              <td>Desktop Support Technician</td>
+              <td>Purple</td>
+            </tr>
+            <!-- row 3 -->
+            <tr>
+              <th>3</th>
+              <td>Brice Swyre</td>
+              <td>Tax Accountant</td>
+              <td>Red</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> 
+  <div class="drawer-side">
+    <label for="my-drawer" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+      <li><a href="{{ url_for('views.home') }}">Orders</a></li>
+      <li><a href="{{ url_for('views.products') }}">Products</a></li>
+      <li><a href="{{ url_for('views.report') }}">Sales Report</a></li>
+      <li><a href="{{ url_for('views.users') }}">Users</a></li>
+    </ul>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endblock %}

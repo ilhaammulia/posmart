@@ -40,15 +40,36 @@ Dashboard
           <i class='bx bxs-t-shirt mr-2' ></i>
           Equipments
         </button>
+
         <div class="divider"></div>
+
         <div class="flex gap-8">
           <div id="payment">
             <div class="card w-96 bg-base-100 shadow-xl">
               <div class="card-body">
-                <h2 class="card-title">Card title!</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div class="card-actions justify-end">
-                  <button class="btn btn-primary">Buy Now</button>
+                <div class="flex justify-between">
+                  <h2 class="card-title opacity-50">Subtotal</h2>
+                  <h2 class="card-title order-last">Rp. 5000</h2>
+                </div>
+                <div class="flex justify-between">
+                  <h2 class="card-title opacity-50">Tax 10%</h2>
+                  <h2 class="card-title order-last">Rp. 500</h2>
+                </div>
+                <div class="divider"></div>
+                <div class="flex justify-between">
+                  <h2 class="card-title">Total</h2>
+                  <h2 class="card-title order-last">Rp. 5500</h2>
+                </div>
+                <div class="mt-60">
+                  <h2 class="card-title opacity-50 text-sm">Payment Method</h2>
+                  <div class="mt-3">
+                    <button class="btn btn-outline btn-md text-lg w-24 ml-0.5" onclick="choosePaymentMethod(this)"><i class='bx bx-money'></i></button>
+                    <button class="btn btn-outline btn-md text-lg w-24 ml-2.5" onclick="choosePaymentMethod(this)"><i class='bx bxs-credit-card' ></i></button>
+                    <button class="btn btn-outline btn-md text-lg w-24 ml-2.5" onclick="choosePaymentMethod(this)"><i class='bx bx-qr' ></i></button>
+                  </div>
+                </div>
+                <div class="card-actions mt-3">
+                  <button class="btn payment-btn w-full text-theme hover:text-white">PAY</button>
                 </div>
               </div>
             </div>
@@ -85,8 +106,9 @@ Dashboard
       </div>
       
       <div id="product" class="flex-initial w-screen h-screen">
-        <div id="product-list" class="mt-10 ml-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          <div class="card card-compact w-60 product-bg">
+        <div id="product-list" class="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-5">
+          <div class="card card-compact w-60 product-bg indicator">
+            <span class="indicator-item indicator-center badge badge-primary font-bold">Rp.55000</span> 
             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
             <div class="card-body">
               <h2 class="card-title text-theme">Shoes! <div class="badge badge-primary text-sm">99</div></h2>
@@ -98,7 +120,8 @@ Dashboard
             </div>
           </div>
 
-          <div class="card card-compact w-60 product-bg">
+          <div class="card card-compact w-60 product-bg indicator">
+            <span class="indicator-item indicator-center badge badge-primary font-bold">Rp.5000</span> 
             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
             <div class="card-body">
               <h2 class="card-title text-theme">Shoes! <div class="badge badge-primary text-sm">99</div></h2>
@@ -110,7 +133,8 @@ Dashboard
             </div>
           </div>
 
-          <div class="card card-compact w-60 product-bg">
+          <div class="card card-compact w-60 product-bg indicator">
+            <span class="indicator-item indicator-center badge badge-primary font-bold">Rp.5000</span> 
             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
             <div class="card-body">
               <h2 class="card-title text-theme">Shoes! <div class="badge badge-primary text-sm">99</div></h2>
@@ -122,7 +146,8 @@ Dashboard
             </div>
           </div>
 
-          <div class="card card-compact w-60 product-bg">
+          <div class="card card-compact w-60 product-bg indicator">
+            <span class="indicator-item indicator-center badge badge-primary font-bold">Rp.5000</span> 
             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
             <div class="card-body">
               <h2 class="card-title text-theme">Shoes! <div class="badge badge-primary text-sm">99</div></h2>
@@ -134,7 +159,8 @@ Dashboard
             </div>
           </div>
 
-          <div class="card card-compact w-60 product-bg">
+          <div class="card card-compact w-60 product-bg indicator">
+            <span class="indicator-item indicator-center badge badge-primary font-bold">Rp.5000</span> 
             <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
             <div class="card-body">
               <h2 class="card-title text-theme">Shoes! <div class="badge badge-primary text-sm">99</div></h2>
@@ -153,10 +179,10 @@ Dashboard
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 bg-base-100 text-base-content">
-      <li><a>Orders</a></li>
-      <li><a>Products</a></li>
-      <li><a>Sales Report</a></li>
-      <li><a>Users</a></li>
+      <li><a href="{{ url_for('views.home') }}">Orders</a></li>
+      <li><a href="{{ url_for('views.products') }}">Products</a></li>
+      <li><a href="{{ url_for('views.report') }}">Sales Report</a></li>
+      <li><a href="{{ url_for('views.users') }}">Users</a></li>
     </ul>
   </div>
 </div>

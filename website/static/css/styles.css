@@ -30,3 +30,15 @@ body {
 .product-bg {
   background-color: var(--white-bg);
 }
+
+.payment-btn {
+  background-color: var(--white-bg);
+}
+
+.add-btn { 
+    background-color: #69D2B0;
+}
+
+.add-btn:hover {
+  background-color: var(--white-bg);
+}
