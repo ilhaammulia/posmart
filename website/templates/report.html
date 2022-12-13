@@ -14,18 +14,23 @@ Sales Report
         </label>
       </div>
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">POSmart</a>
+        <a href="{{ url_for('views.home') }}" class="btn btn-ghost normal-case text-xl">POSmart</a>
       </div>
       <div class="flex-none">
-        <span class="text-right">Ilham Mulia</span>
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn m-1 capitalize">{{ user.name }}</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a href="#update-user-modal">Edit Profile</a></li>
+          </ul>
+        </div>
       </div>
       <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
+        <a href="{{ url_for('views.logout') }}" class="btn btn-square btn-ghost">
           <i class='bx bx-power-off' ></i>
-        </button>
+        </a>
       </div>
     </div>
-    <div id="info" class="w-4/5 mx-auto mt-10">
+    <div id="info" class="w-11/12 mx-auto mt-10">
       <div id="stats" class="flex justify-between">
         <div class="card w-2/4 bg-base-50 shadow-xl">
           <div class="card-body">
@@ -99,42 +104,8 @@ Sales Report
         </div>
       </div>
   
-      <div id="table-products" class="overflow-x-auto mx-auto mt-10">
-        <button class="btn add-btn text-theme mb-5">Add Product</button>
-        <table class="table w-full">
-          <!-- head -->
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Job</th>
-              <th>Favorite Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- row 1 -->
-            <tr>
-              <th>1</th>
-              <td>Cy Ganderton</td>
-              <td>Quality Control Specialist</td>
-              <td>Blue</td>
-            </tr>
-            <!-- row 2 -->
-            <tr>
-              <th>2</th>
-              <td>Hart Hagerty</td>
-              <td>Desktop Support Technician</td>
-              <td>Purple</td>
-            </tr>
-            <!-- row 3 -->
-            <tr>
-              <th>3</th>
-              <td>Brice Swyre</td>
-              <td>Tax Accountant</td>
-              <td>Red</td>
-            </tr>
-          </tbody>
-        </table>
+      <div id="report" class="overflow-x-auto mx-auto mt-10">
+        <canvas id="report-chart" class="w-screen"></canvas>
       </div>
     </div>
   </div> 
@@ -143,7 +114,7 @@ Sales Report
     <ul class="menu p-4 w-80 bg-base-100 text-base-content">
       <li><a href="{{ url_for('views.home') }}">Orders</a></li>
       <li><a href="{{ url_for('views.products') }}">Products</a></li>
-      <li><a href="{{ url_for('views.report') }}">Sales Report</a></li>
+      <li><a class="active">Sales Report</a></li>
       <li><a href="{{ url_for('views.users') }}">Users</a></li>
     </ul>
   </div>
@@ -152,5 +123,6 @@ Sales Report
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/report.js') }}"></script>
 {% endblock %}

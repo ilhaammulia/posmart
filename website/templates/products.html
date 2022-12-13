@@ -7,6 +7,73 @@ Products
 <div class="drawer">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
+    <div class="modal" id="show-product">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Product Image</h3>
+        <img id="product-image" src="" class="mx-auto mt-10">
+        <div class="modal-action">
+         <a href="#" class="btn btn-active btn-ghost">Close</a>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="add-product-modal">
+      <div class="modal-box">
+        <form action="{{ url_for('views.products') }}" method="post" enctype="multipart/form-data">
+          <h3 class="font-bold text-lg">Add Product</h3>
+          <input type="text" name="name" placeholder="Product Name" class="input input-bordered w-full text-center mt-5" required />
+          <select name="category" class="select select-bordered w-full mt-5 text-center" required>
+            <option disabled selected>Select Category</option>
+            <option value="drinks">Drinks</option>
+            <option value="foods">Foods</option>
+            <option value="equipments">Equipments</option>
+          </select>
+          <input type="text" name="price" placeholder="Product Price" class="input input-bordered w-full text-center mt-5" required />
+          <input type="text" name="stocks" placeholder="Product Stocks" class="input input-bordered w-full text-center mt-5" required />
+          <input type="file" name="img" class="file-input file-input-bordered w-full mt-5" required />
+          <div class="modal-action">
+            <a href="" class="btn btn-active btn-ghost">Close</a>
+            <button type="submit" class="btn btn-active btn-accent">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="update-product-modal">
+      <div class="modal-box">
+        <form action="{{ url_for('views.products') }}" method="post" enctype="multipart/form-data">
+          <h3 class="font-bold text-lg">Edit Product</h3>
+          <input type="hidden" name="_method" value="put" />
+          <input type="hidden" id="product-id" name="product_id">
+          <input type="text" id="product-name" name="name" placeholder="Product Name" class="input input-bordered w-full text-center mt-5" required />
+          <select id="product-category" name="category" class="select select-bordered w-full mt-5 text-center" required>
+            <option disabled selected>Select Category</option>
+            <option value="drinks">Drinks</option>
+            <option value="foods">Foods</option>
+            <option value="equipments">Equipments</option>
+          </select>
+          <input type="text" id="product-price" name="price" placeholder="Product Price" class="input input-bordered w-full text-center mt-5" required />
+          <input type="text" id="product-stocks" name="stocks" placeholder="Product Stocks" class="input input-bordered w-full text-center mt-5" required />
+          <input type="file" name="img" class="file-input file-input-bordered w-full mt-5" required />
+          <div class="modal-action">
+            <a href="" class="btn btn-active btn-ghost">Close</a>
+            <button type="submit" class="btn btn-active btn-accent">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="delete-product">
+      <div class="modal-box">
+        <form action="{{ url_for('views.products') }}" method="post">
+          <h3 class="font-bold text-lg">Delete Product</h3>
+          <input type="hidden" name="_method" value="delete" />
+          <input type="hidden" name="product_id" id="product-id-delete" />
+          <p class="py-4">Are you sure you want to delete the product?</p>
+          <div class="modal-action">
+            <a href="" class="btn btn-active btn-ghost">Close</a>
+            <button type="submit" class="btn btn-active btn-secondary">Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="navbar bg-base-100">
       <div class="flex-none">
         <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
@@ -14,72 +81,78 @@ Products
         </label>
       </div>
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">POSmart</a>
+        <a href="{{ url_for('views.home') }}" class="btn btn-ghost normal-case text-xl">POSmart</a>
       </div>
       <div class="flex-none">
-        <span class="text-right">Ilham Mulia</span>
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn m-1 capitalize">{{ user.name }}</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a href="#update-user-modal">Edit Profile</a></li>
+          </ul>
+        </div>
       </div>
       <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
+        <a href="{{ url_for('views.logout') }}" class="btn btn-square btn-ghost">
           <i class='bx bx-power-off' ></i>
-        </button>
+        </a>
       </div>
     </div>
     <div class="flex justify-between mx-auto mt-10 px-96">
       <div class="stats shadow text-center">
         <div class="stat">
           <div class="stat-title">Total Products</div>
-          <div class="stat-value">89,400</div>
+          <div class="stat-value">{{ total_products }}</div>
         </div>
       </div>
       <div class="stats shadow text-center">
         <div class="stat">
           <div class="stat-title">Total Stocks</div>
-          <div class="stat-value">89,400</div>
+          <div class="stat-value">{{ total_stocks }}</div>
         </div>
       </div>
       <div class="stats shadow text-center">
         <div class="stat">
           <div class="stat-title">Product Out of Stock</div>
-          <div class="stat-value">3</div>
+          <div class="stat-value">{{ total_product_out_of_stock }}</div>
         </div>
       </div>
     </div>
 
     <div id="table-products" class="overflow-x-auto w-3/5 mx-auto mt-10">
-      <button class="btn add-btn text-theme mb-5">Add Product</button>
+      <a href="#add-product-modal" class="btn add-btn text-theme mb-5">Add Product</a>
       <table class="table w-full">
-        <!-- head -->
         <thead>
           <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
+            <th>No</th>
+            <th>Product Name</th>
+            <th>Product Category</th>
+            <th>Product Price</th>
+            <th>Product Stocks</th>
+            <th>Product Image</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <!-- row 1 -->
-          <tr>
-            <th>1</th>
-            <td>Cy Ganderton</td>
-            <td>Quality Control Specialist</td>
-            <td>Blue</td>
-          </tr>
-          <!-- row 2 -->
-          <tr>
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr>
-          <!-- row 3 -->
-          <tr>
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr>
+          {% if products %}
+            {% for no, product in products %}
+              <tr>
+                <td>{{ no + 1 }}</td>
+                <td>{{ product[1] }}</td>
+                <td>{{ product[2] }}</td>
+                <td>{{ product[3] }}</td>
+                <td>{{ product[4] }}</td>
+                <td><a href="#show-product" class="btn btn-sm" onclick="openImage(`{{ url_for('static', filename='img/products/' + product[5]) }}`)">Show Image</a></td>
+                <td>
+                  <a href="#update-product-modal" class="btn btn-active btn-primary btn-sm" data-id="{{ product[0] }}" onclick="updateProduct(this)">Edit</a>
+                  <a href="#delete-product" class="btn btn-active btn-secondary btn-sm" data-id="{{ product[0] }}" onclick="deleteProduct(this)">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else  %}
+              <tr>
+                Product not available
+              </tr>
+          {% endif %}
         </tbody>
       </table>
     </div>
@@ -88,7 +161,7 @@ Products
     <label for="my-drawer" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 bg-base-100 text-base-content">
       <li><a href="{{ url_for('views.home') }}">Orders</a></li>
-      <li><a href="{{ url_for('views.products') }}">Products</a></li>
+      <li><a class="active">Products</a></li>
       <li><a href="{{ url_for('views.report') }}">Sales Report</a></li>
       <li><a href="{{ url_for('views.users') }}">Users</a></li>
     </ul>
@@ -98,5 +171,5 @@ Products
 {% endblock %}
 
 {% block scripts %}
-  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/product.js') }}"></script>
 {% endblock %}

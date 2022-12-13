@@ -19,6 +19,10 @@ body {
   color: var(--dark-bg);
 }
 
+.text-theme-white {
+  color: var(--white-bg);
+}
+
 .category-btn {
   background-color: var(--green-bg);
 }
@@ -41,4 +45,8 @@ body {
 
 .add-btn:hover {
   background-color: var(--white-bg);
+}
+
+.login-btn {
+  background-color: var(--green-bg);
 }

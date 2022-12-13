@@ -7,6 +7,15 @@ Users
 <div class="drawer">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
+    <div class="modal" id="add-user-modal">
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Congratulations random Internet user!</h3>
+        <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+        <div class="modal-action">
+         <a href="#" class="btn">Yay!</a>
+        </div>
+      </div>
+    </div>
     <div class="navbar bg-base-100">
       <div class="flex-none">
         <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
@@ -14,15 +23,20 @@ Users
         </label>
       </div>
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">POSmart</a>
+        <a href="{{ url_for('views.home') }}" class="btn btn-ghost normal-case text-xl">POSmart</a>
       </div>
       <div class="flex-none">
-        <span class="text-right">Ilham Mulia</span>
+        <div class="dropdown dropdown-end">
+          <label tabindex="0" class="btn m-1 capitalize">{{ user.name }}</label>
+          <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            <li><a href="#update-user-modal">Edit Profile</a></li>
+          </ul>
+        </div>
       </div>
       <div class="flex-none">
-        <button class="btn btn-square btn-ghost">
+        <a href="{{ url_for('views.logout') }}" class="btn btn-square btn-ghost">
           <i class='bx bx-power-off' ></i>
-        </button>
+        </a>
       </div>
     </div>
     <div class="flex justify-between mx-auto mt-10 px-96">
@@ -47,7 +61,7 @@ Users
     </div>
 
     <div id="table-products" class="overflow-x-auto w-3/5 mx-auto mt-10">
-      <button class="btn add-btn text-theme mb-5">Add User</button>
+      <a href="#add-user-modal" class="btn add-btn text-theme mb-5">Add User</a>
       <table class="table w-full">
         <!-- head -->
         <thead>
@@ -90,7 +104,7 @@ Users
       <li><a href="{{ url_for('views.home') }}">Orders</a></li>
       <li><a href="{{ url_for('views.products') }}">Products</a></li>
       <li><a href="{{ url_for('views.report') }}">Sales Report</a></li>
-      <li><a href="{{ url_for('views.users') }}">Users</a></li>
+      <li><a class="active">Users</a></li>
     </ul>
   </div>
 </div>
