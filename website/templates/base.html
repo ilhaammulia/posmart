@@ -13,27 +13,6 @@
 </head>
 
 <body>
-  <div class="modal" id="update-user-modal">
-    <div class="modal-box">
-      <form action="{{ url_for('views.users') }}" method="post">
-        <h3 class="font-bold text-lg">Edit Profile</h3>
-        <input type="hidden" name="_method" value="put" />
-        <input type="hidden" name="user_id" value="{{ user.user_id }}" />
-        <input type="text" name="username" placeholder="Username" value="{{ user.username }}"
-          class="input w-full text-center mt-5" readonly />
-        <input type="text" name="name" placeholder="Name" value="{{ user.name }}" class="input input-bordered w-full text-center mt-5"/>
-        <div class="divider"></div>
-        <input type="password" name="password" placeholder="Password"
-          class="input input-bordered w-full text-center" />
-        <input type="password" name="confirmpass" placeholder="Confirm Password"
-          class="input input-bordered w-full text-center mt-5" />
-        <div class="modal-action">
-          <a href="" class="btn btn-active btn-ghost">Close</a>
-          <button type="submit" class="btn btn-active btn-accent">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
   {% block content %}
   {% endblock %}
   {% with messages = get_flashed_messages(with_categories=true) %}

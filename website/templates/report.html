@@ -7,6 +7,28 @@ Sales Report
 <div class="drawer">
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
+    <div class="modal" id="update-user-modal">
+      <div class="modal-box">
+        <form action="{{ url_for('views.users') }}" method="post">
+          <h3 class="font-bold text-lg">Edit Profile</h3>
+          <input type="hidden" name="_method" value="put" />
+          <input type="hidden" name="user_id" value="{{ user.user_id }}" />
+          <input type="hidden" name="role" value="{{ user.role }}" />
+          <input type="text" name="username" placeholder="Username" value="{{ user.username }}"
+            class="input w-full text-center mt-5" readonly />
+          <input type="text" name="name" placeholder="Name" value="{{ user.name }}" class="input input-bordered w-full text-center mt-5"/>
+          <div class="divider"></div>
+          <input type="password" name="password" placeholder="Password"
+            class="input input-bordered w-full text-center" />
+          <input type="password" name="confirmpass" placeholder="Confirm Password"
+            class="input input-bordered w-full text-center mt-5" />
+          <div class="modal-action">
+            <a href="" class="btn btn-active btn-ghost">Close</a>
+            <button type="submit" class="btn btn-active btn-accent">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="navbar bg-base-100">
       <div class="flex-none">
         <label for="my-drawer" class="btn btn-square btn-ghost drawer-button">
@@ -43,7 +65,7 @@ Sales Report
                       <i class='bx bxs-bar-chart-alt-2 text-2xl' ></i>
                     </div>
                   </div>
-                  <div class="stat-value">89,400</div>
+                  <div class="stat-value">{{ total_sales }}</div>
                   <div class="stat-desc">Total Sales</div>
                 </div>
               </div>
@@ -54,7 +76,7 @@ Sales Report
                       <i class='bx bxs-cart-alt text-2xl' ></i>
                     </div>
                   </div>
-                  <div class="stat-value">89,400</div>
+                  <div class="stat-value">{{ today_orders|length }}</div>
                   <div class="stat-desc">Total Order</div>
                 </div>
               </div>
@@ -65,7 +87,7 @@ Sales Report
                       <i class='bx bxs-package text-2xl' ></i>
                     </div>
                   </div>
-                  <div class="stat-value">89,400</div>
+                  <div class="stat-value">{{ products_sold }}</div>
                   <div class="stat-desc">Total Product Sold</div>
                 </div>
               </div>
@@ -75,29 +97,21 @@ Sales Report
   
         <div class="card w-1/4 bg-base-50 shadow-xl justify-end">
           <div class="card-body">
-            <h2 class="card-title gap-3">Top Product</h2>
-            <table>
+            <h2 class="card-title">Top Product of The Month</h2>
+            <table class="w-full text-center border-separate border-spacing-1">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Product Sold</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr>
-                  <td class="w-56">Nama Product</td>
-                  <td><progress class="progress progress-accent w-40" value="100" max="100"></progress></td>
-                </tr>
-                <tr>
-                  <td>Nama Product</td>
-                  <td><progress class="progress progress-accent w-40" value="80"" max="100"></progress></td>
-                </tr>
-                <tr>
-                  <td>Nama Product</td>
-                  <td><progress class="progress progress-accent w-40" value="60" max="100"></progress></td>
-                </tr>
-                <tr>
-                  <td>Nama Product</td>
-                  <td><progress class="progress progress-accent w-40" value="40" max="100"></progress></td>
-                </tr>
-                <tr>
-                  <td>Nama Product</td>
-                  <td><progress class="progress progress-accent w-40" value="20" max="100"></progress></td>
-                </tr>
+                {% for product in top_products %}
+                  <tr>
+                    <td>{{ product[0] }}</td>
+                    <td>{{ product[1] }}</td>
+                  </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -105,6 +119,21 @@ Sales Report
       </div>
   
       <div id="report" class="overflow-x-auto mx-auto mt-10">
+        <select class="select select-bordered w-full max-w-xs" onchange="selectMonth(this)">
+          <option disabled selected>Select Month</option>
+          <option value="01">Januari</option>
+          <option value="02">Februari</option>
+          <option value="03">Maret</option>
+          <option value="04">April</option>
+          <option value="05">Mei</option>
+          <option value="06">Juni</option>
+          <option value="07">Juli</option>
+          <option value="08">Agustus</option>
+          <option value="09">September</option>
+          <option value="10">Oktober</option>
+          <option value="11">November</option>
+          <option value="12">Desember</option>
+        </select>
         <canvas id="report-chart" class="w-screen"></canvas>
       </div>
     </div>
@@ -115,7 +144,9 @@ Sales Report
       <li><a href="{{ url_for('views.home') }}">Orders</a></li>
       <li><a href="{{ url_for('views.products') }}">Products</a></li>
       <li><a class="active">Sales Report</a></li>
+      {% if user.role == 'admin' %}
       <li><a href="{{ url_for('views.users') }}">Users</a></li>
+      {% endif %}
     </ul>
   </div>
 </div>
